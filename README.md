@@ -48,6 +48,6 @@
   - dodawanie zadań na bazie
   - usuwanie zadań na bazie
   - edycja opisu zadania
-  - wyswietlanie statusu zadania
+  - ~~wyswietlanie statusu zadania~~
   - ~~pobierania zadań z bazy~~
   - wygląd strony

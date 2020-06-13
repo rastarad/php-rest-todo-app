@@ -94,8 +94,10 @@ $polaczenie->close();
 
                         foreach ($tasks as $task) {
                             $name = $task['name'];
-               
-                            echo '<li class="collection-item">';
+                            $is_task_done = $task['status']==1;
+                            $task_class_name = $is_task_done?"task-done":"task-todo";
+                            echo "<li class='collection-item $task_class_name'>";
+                                echo $is_task_done?'<i class="fa fa-check-square-o"></i>':'<i class="fa fa-square-o"></i>';
                                 echo $name;
                                 echo '<a class = "delete-item secondary-content">';
                                 echo '<i class="fa fa-remove"></i>';
