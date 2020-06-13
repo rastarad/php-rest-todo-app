@@ -25,7 +25,7 @@ else
     $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
 
     if($rezultat = @$polaczenie->query(
-        sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
+        sprintf("SELECT * FROM users WHERE email='%s' AND password_hash='%s'",
         mysqli_real_escape_string($polaczenie,$login),
         mysqli_real_escape_string($polaczenie,$haslo))))
     {
@@ -36,16 +36,10 @@ else
 
             $wiersz = $rezultat->fetch_assoc();
              $_SESSION['id'] = $wiersz['id'];
-             $_SESSION['user'] = $wiersz['user'];
-             $_SESSION['drewno'] = $wiersz['drewno'];
-             $_SESSION['kamien'] = $wiersz['kamien'];
-             $_SESSION['zboze'] = $wiersz['zboze'];
-             $_SESSION['email'] = $wiersz['email'];
-             $_SESSION['dnipremium'] = $wiersz['dnipremium'];
-            
+
             unset($_SESSION['blad']);
              $rezultat->free_result();
-             header('Location: gra.php');
+             header('Location: tasks.php');
 
 
         }else {
