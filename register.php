@@ -43,9 +43,42 @@
 
         if($wszystko_OK==true)
         {
-            //Wszystkie testy zaliczone, dodajemy gracza do bazy
-            echo "udana walidacja";
-            exit();
+
+            require_once "connect.php";
+
+            $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+        
+        if ($polaczenie->connect_errno!=0)
+        {
+            echo "Error: ".$polaczenie->connect_errno;
+        }else
+        {
+        
+            $email = htmlentities($email, ENT_QUOTES, "UTF-8");
+            $password_1 = htmlentities($password_1, ENT_QUOTES, "UTF-8");
+        
+            if($rezultat = @$polaczenie->query(
+                sprintf("INSERT INTO `users`(`email`, `password_hash`, `is_admin`) VALUES ('%s','%s',0)",
+                mysqli_real_escape_string($polaczenie,$email),
+                mysqli_real_escape_string($polaczenie,$password_1))))
+            {
+
+                if($rezultat === TRUE)
+                {
+                    unset($_SESSION['blad']);
+                     header('Location: index.php');
+                     $polaczenie->close();
+                    exit();
+                }else {
+        
+                    $_SESSION['blad'] = '<span style="color:red">Nieudana rejestracja. Spróbuj ponownie</span>';
+                    $polaczenie->close(); 
+                }
+            }
+        
+      
+        }
+        
         }
 
     }
@@ -73,7 +106,7 @@
 
 <body>
 
-    <form method="post" action="rejestracja.php">
+    <form method="post" action="">
 
         <?php
         if(isset($_SESSION['err_email']))
