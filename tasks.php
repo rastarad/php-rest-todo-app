@@ -8,6 +8,47 @@ if(!isset($_SESSION['zalogowany']))
     header('Location: index.php');
     exit();   
 }
+
+require_once "connect.php";
+
+$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+
+if ($polaczenie->connect_errno!=0)
+{
+echo "Error: ".$polaczenie->connect_errno;
+}
+else
+{
+$user_id = $_SESSION['id'];
+
+$user_id = htmlentities($user_id, ENT_QUOTES, "UTF-8");
+
+if($rezultat = @$polaczenie->query(
+    sprintf("SELECT * FROM tasks WHERE user_id='%s'",
+    mysqli_real_escape_string($polaczenie,$user_id),
+    )))
+{
+    $tasks = array();
+    $ile_zadan =  $rezultat->num_rows;
+    if($ile_zadan >0)
+    {
+        $_SESSION['zalogowany']= true;
+
+        for($i = 0; $i < $ile_zadan; $i++ ){
+            $wiersz = $rezultat->fetch_assoc();
+            $tasks[$i] = $wiersz;
+        }
+    }
+}
+
+$polaczenie->close();
+}
+
+
+
+
+
+
 ?>
 
 
@@ -51,13 +92,8 @@ if(!isset($_SESSION['zalogowany']))
                         <ul class="collection">
                             <?php
 
-
-                    $tasks[0] = 'testowe_zadanie_1';
-                    $tasks[1] = 'testowe_zadanie_2';
-                    $tasks[2] = 'testowe_zadanie_3';
-                    $tasks[3] = 'testowe_zadanie_4';
                         foreach ($tasks as $task) {
-                            $name = $task;
+                            $name = $task['name'];
                
                             echo '<li class="collection-item">';
                                 echo $name;

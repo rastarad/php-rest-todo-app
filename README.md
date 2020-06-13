@@ -40,6 +40,7 @@
 - ekran rejestracji
   - ~~zakładanie konta na bazie~~
   - wygląd strony
+  - hashowanie haseł
 - ekran logowania
   - zapamiętywanie emaila
   - wygląd strony
@@ -48,5 +49,5 @@
   - usuwanie zadań na bazie
   - edycja opisu zadania
   - wyswietlanie statusu zadania
-  - pobierania zadań z bazy
+  - ~~pobierania zadań z bazy~~
   - wygląd strony
