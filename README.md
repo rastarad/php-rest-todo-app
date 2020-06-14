@@ -40,10 +40,13 @@
 - ekran rejestracji
   - ~~zakładanie konta na bazie~~
   - wygląd strony
-  - hashowanie haseł
+  - informacja po próbie stworzenia takiego samego mejla
+  - **hashowanie haseł Argon2id**
+  - ~~przeniesienie do logowania~~
 - ekran logowania
-  - zapamiętywanie emaila
+  - ~~zapamiętywanie emaila~~
   - wygląd strony
+  - ~~przeniesienie do rejestracji~~
 - ekran zadań
   - dodawanie zadań na bazie
   - usuwanie zadań na bazie
@@ -51,3 +54,4 @@
   - ~~wyswietlanie statusu zadania~~
   - ~~pobierania zadań z bazy~~
   - wygląd strony
+  - ~~przycisk wylogowania~~

@@ -7,6 +7,10 @@
         header('Location:tasks.php');
         exit();   
     }
+    $login = "";
+    if(!empty($_SESSION['login'])){
+    $login = $_SESSION['login'];
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -20,13 +24,14 @@
 
 <body>
 
-    Tylko martwi ujrzeli koniec wojny - Platon
+    Tylko martwi ujrzeli koniec programowania - Platfon
 
     <form action="zaloguj.php" method="post">
 
-        Login: <br /> <input type="text" name="login" /> <br />
+        Email: <br /> <input type="email" name="login" value="<?php echo $login ?>" /> <br />
         Hasło: <br /> <input type="password" name="haslo" /> <br /> <br />
         <input type="submit" value="Zaloguj się" />
+        [<a href="register.php"> Zarejestruj się! </a>]</p>
 
     </form>
 
