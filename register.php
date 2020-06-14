@@ -63,15 +63,17 @@
         //jeśl walidacja się powiodła łączę się z bazą
         if($wszystko_OK==true)
         {
+            $password_hash = password_hash($password_1, PASSWORD_ARGON2ID);
+
             //pozwala używać encji
             $email = htmlentities($email, ENT_QUOTES, "UTF-8");
-            $password_1 = htmlentities($password_1, ENT_QUOTES, "UTF-8");
+            $password_hash = htmlentities($password_hash, ENT_QUOTES, "UTF-8");
         
             // dodaje nowy email i hasło do bazy
             if($rezultat = @$polaczenie->query(
                 sprintf("INSERT INTO `users`(`email`, `password_hash`, `is_admin`) VALUES ('%s','%s',0)",
                 mysqli_real_escape_string($polaczenie,$email),
-                mysqli_real_escape_string($polaczenie,$password_1))))
+                mysqli_real_escape_string($polaczenie,$password_hash))))
             {
                 if($rezultat === TRUE)
                 {
