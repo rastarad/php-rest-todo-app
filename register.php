@@ -22,8 +22,6 @@
             $password_2 = $_POST['password_2'];
          }
 
-
-
         //Sprawdzanie poprawności danych
         if(strlen($email)<5 || (strlen($email)>20))
         {
@@ -41,19 +39,29 @@
             $_SESSION['err_password_2']="Hasła muszą być takie same";
         }
 
-        //jeśl walidacja się powiodła łączę się z bazą
-        if($wszystko_OK==true)
-        {
-
-            require_once "connect.php";
-
-            $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+        require_once "connect.php";
+        $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
         
-        //if: zwraca błąd połączenia, else: 
         if ($polaczenie->connect_errno!=0)
         {
             echo "Error: ".$polaczenie->connect_errno;
-        }else
+            http_response_code(500);
+            die('Failed to connect to database');
+        }
+
+        if($rezultat = $polaczenie->query(
+            sprintf("SELECT * FROM users WHERE email='%s'",
+            mysqli_real_escape_string($polaczenie,$email),
+        )))
+        {
+            if($rezultat->num_rows > 0){
+                $wszystko_OK=false;
+                $_SESSION['err_email'] = "Uzytkownik o podanym mailu istnieje";
+            }
+        }
+    
+        //jeśl walidacja się powiodła łączę się z bazą
+        if($wszystko_OK==true)
         {
             //pozwala używać encji
             $email = htmlentities($email, ENT_QUOTES, "UTF-8");
@@ -65,7 +73,6 @@
                 mysqli_real_escape_string($polaczenie,$email),
                 mysqli_real_escape_string($polaczenie,$password_1))))
             {
-             
                 if($rezultat === TRUE)
                 {
                     unset($_SESSION['blad']);
@@ -73,19 +80,12 @@
                      $polaczenie->close();
                     exit();
                 }else {
-        
                     $_SESSION['blad'] = '<span style="color:red">Nieudana rejestracja. Spróbuj ponownie</span>';
                     $polaczenie->close(); 
                 }
             }
-        
-      
-        }
-        
-        }
-
+        }  
     }
-
 ?>
 
 <!DOCTYPE HTML>

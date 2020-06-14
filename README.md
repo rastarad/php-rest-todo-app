@@ -40,7 +40,7 @@
 - ekran rejestracji
   - ~~zakładanie konta na bazie~~
   - wygląd strony
-  - informacja po próbie stworzenia takiego samego mejla
+  - ~~informacja po próbie stworzenia takiego samego mejla~~
   - **hashowanie haseł Argon2id**
   - ~~przeniesienie do logowania~~
 - ekran logowania
