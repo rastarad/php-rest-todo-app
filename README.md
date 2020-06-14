@@ -47,7 +47,7 @@
   - ~~zapamiętywanie emaila~~
   - wygląd strony
   - ~~przeniesienie do rejestracji~~
-  - hashowanie haseł Argon2id
+  - ~~hashowanie haseł Argon2id~~
 - ekran zadań
   - ~~dodawanie zadań na bazie~~
   - ~~usuwanie zadań na bazie~~
