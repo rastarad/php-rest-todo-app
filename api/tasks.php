@@ -15,6 +15,21 @@ if ($polaczenie->connect_errno!=0) {
 } else {
     $user_id = $_SESSION['id'];
     
+    if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+
+        $task = array(
+            "id" => $_PUT['id'],
+            "name" => $_PUT['name'],
+            "status" => $_PUT['status'],
+            "due_date" => $_PUT['due_date']
+        );
+        update($polaczenie,$user_id,$task);
+    }
+
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    }
+
     if(isset($_GET['task_id'])){
         $task_id = $_GET['task_id'];
         get($polaczenie,$user_id,$task_id);
@@ -78,4 +93,35 @@ function get($polaczenie,$user_id,$task_id)
     }
 }
 
+function update($polaczenie,$user_id,$task)
+{
+    $user_id = htmlentities($user_id, ENT_QUOTES, "UTF-8");
+    $task_id = htmlentities($task['id'], ENT_QUOTES, "UTF-8");
+    $name = htmlentities($task['name'], ENT_QUOTES, "UTF-8");
+    $status = htmlentities($task['status'], ENT_QUOTES, "UTF-8");
+    $due_date = htmlentities($task['due_date'], ENT_QUOTES, "UTF-8");
+
+
+    if ($rezultat = @$polaczenie->query(
+        sprintf("UPDATE tasks 
+                    SET name='%s', status='%s', due_date='%s'
+                  WHERE user_id='%s' AND id='%s'",
+            mysqli_real_escape_string($polaczenie,$name),
+            mysqli_real_escape_string($polaczenie,$status),
+            mysqli_real_escape_string($polaczenie,$due_date),
+            mysqli_real_escape_string($polaczenie,$user_id),
+            mysqli_real_escape_string($polaczenie,$task_id)
+    )))
+    {
+        if($rezultat === TRUE)
+        {
+            get($polaczenie,$user_id,$task['id']);
+        }
+        else
+        {
+            http_response_code(400);
+            die('error');
+        }
+    }
+}
 ?>
