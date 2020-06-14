@@ -48,10 +48,11 @@
   - wygląd strony
   - ~~przeniesienie do rejestracji~~
 - ekran zadań
-  - dodawanie zadań na bazie
-  - usuwanie zadań na bazie
-  - edycja opisu zadania
+  - ~~dodawanie zadań na bazie~~
+  - ~~usuwanie zadań na bazie~~
+  - ~~edycja opisu zadania~~
   - ~~wyswietlanie statusu zadania~~
   - ~~pobierania zadań z bazy~~
   - wygląd strony
   - ~~przycisk wylogowania~~
+  - podpięcie do api
