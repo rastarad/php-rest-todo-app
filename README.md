@@ -56,4 +56,5 @@
   - ~~pobierania zadań z bazy~~
   - wygląd strony
   - ~~przycisk wylogowania~~
-  - podpięcie do api
+  - ~~podpięcie do api~~
+  - wywołanie funkcji
