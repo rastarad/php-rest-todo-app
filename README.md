@@ -39,13 +39,13 @@
   - all
 - ekran rejestracji
   - ~~zakładanie konta na bazie~~
-  - wygląd strony
+  - ~~wygląd strony~~
   - ~~informacja po próbie stworzenia takiego samego mejla~~
   - ~~hashowanie haseł Argon2id~~
   - ~~przeniesienie do logowania~~
 - ekran logowania
   - ~~zapamiętywanie emaila~~
-  - wygląd strony
+  - ~~wygląd strony~~
   - ~~przeniesienie do rejestracji~~
   - ~~hashowanie haseł Argon2id~~
 - ekran zadań

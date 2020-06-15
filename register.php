@@ -78,7 +78,7 @@
                 if($rezultat === TRUE)
                 {
                     unset($_SESSION['blad']);
-                     header('Location: index.php');
+                     header('Location: login.php');
                      $polaczenie->close();
                     exit();
                 }else {
@@ -91,7 +91,7 @@
 ?>
 
 <!DOCTYPE HTML>
-<html lang="pl">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -99,67 +99,106 @@
     <title>Task_menedżer - załóż darmowe konto</title>
     <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
 
-    <style>
-    .error {
-        color: red;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet" />
 
-    [<a href="zaloguj.php"> Przejdź do logowania </a>]</p>
 </head>
 
 <body>
 
-    <form method="post" action="">
+    <!-- Material form register -->
+    <div class="card">
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Sign up</strong>
+        </h5>
 
-        <?php
-        if(isset($_SESSION['err_email']))
-            {
-                echo '<div class="error">'.$_SESSION['err_email'].'</div>';
-                unset($_SESSION['err_email']);
-            }
-            ?>
-        <label for="email">Email:</label>
-        <input type="email" name="email" minlength="5" maxlength="50" value="<?php echo $email ?>" />
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+            <!-- Form -->
+            <form method="post" class="text-center" style="color: #757575;" action="">
 
-        <?php
-        if(isset($_SESSION['err_password']))
-            {
-                echo '<div class="error">'.$_SESSION['err_password'].'</div>';
-                unset($_SESSION['err_password']);
-            }
-            ?>
-        <label for="password_1">Hasło:</label>
-        <input type="password" name="password_1" minlength="8" value="<?php echo $password_1 ?>" />
+                <!-- E-mail -->
+                <?php
+                    if(isset($_SESSION['err_email']))
+                    {
+                        echo '<div class="error">'.$_SESSION['err_email'].'</div>';
+                        unset($_SESSION['err_email']);
+                    }
+                ?>
+                <div class="md-form">
+                    <input type="email" id="emailinput" name="email" class="form-control" minlength="5" maxlength="50"
+                        value="<?php echo $email ?>" />
+                    <label for="email">E-mail</label>
+                </div>
 
-        <?php
-        if(isset($_SESSION['err_password_2']))
-            {
-                echo '<div class="error">'.$_SESSION['err_password_2'].'</div>';
-                unset($_SESSION['err_password_2']);
-            }
-            ?>
-        <label for="password_2">Powtórz hasło:</label>
-        <input type="password" name="password_2" minlength="8" value="<?php echo $password_2 ?>" />
+                <!-- Password 1-->
+                <div class="md-form">
+                    <input type="password" id="passwordinput_1" name="password_1" class="form-control"
+                        aria-describedby="materialRegisterFormPasswordHelpBlock" minlength="8"
+                        value="<?php echo $password_1 ?>" />
+                    <label for="password_1">Password</label>
+                    <?php
+                    if(isset($_SESSION['err_password']))
+                    {
+                        echo '<div class="invalid-feedback">'.$_SESSION['err_password'].'</div>';
+                        unset($_SESSION['err_password']);
+                    }
+                    ?>
+                </div>
 
-        <!-- <label>
-            <input type="checkbox" name="regulamin" /> Akceptuję regulamin
-        </label> -->
+                <!-- Password 2-->
+                <div class="md-form">
+                    <input type="password" id="passwordinput_2" name="password_2" class="form-control"
+                        aria-describedby="materialRegisterFormPasswordHelpBlock" minlength="8"
+                        value="<?php echo $password_2 ?>" />
+                    <label for="password_2">Confirm password</label>
+                    <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                        At least 8 characters
+                    </small>
+                    <?php
+                    if(isset($_SESSION['err_password_2']))
+                    {
+                        echo '<div class="invalid-feedback">'.$_SESSION['err_password_2'].'</div>';
+                        unset($_SESSION['err_password_2']);
+                    }
+                    ?>
+                </div>
 
+                <!-- Sign up button -->
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">
+                    Sign up
+                </button>
 
+                <!-- Login -->
+                <p>
+                    Already a member
+                    <a href="login.php">Sign in</a>
+                </p>
 
-        <!-- <script>
-        function onSubmit(token) {
-            document.getElementById("demo-form").submit();
-        }
-        </script> -->
+            </form>
+            <!-- Form -->
+        </div>
+    </div>
+    <!-- Material form register -->
 
-        <button data-action='submit'>Zarejestruj się</button>
-
-    </form>
-    <!-- TODO: class="g-recaptcha" data-sitekey="6LdoE6QZAAAAAMTH8ytxSDs8l0jzFgy0X-P_1wbP" data-callback='onSubmit' -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js">
+    </script>
 
 </body>
 
