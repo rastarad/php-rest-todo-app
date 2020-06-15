@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 if(!isset($_SESSION['zalogowany']))
@@ -40,15 +39,8 @@ if($rezultat = @$polaczenie->query(
         }
     }
 }
-
 $polaczenie->close();
 }
-
-
-
-
-
-
 ?>
 
 
@@ -58,11 +50,10 @@ $polaczenie->close();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" /> -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" /> -->
     <title>Web Task App</title>
-    [<a href="logout.php"> Wyloguj się! </a>]</p>
 </head>
 
 <body>
@@ -90,26 +81,38 @@ $polaczenie->close();
                         </div>
 
 
-                        <ul class="collection">
+                        <div class="collection">
                             <?php
 
-                        foreach ($tasks as $task) {
-                            $name = $task['name'];
-                            $is_task_done = $task['status']==1;
-                            $task_class_name = $is_task_done?"task-done":"task-todo";
-                            echo "<li class='collection-item $task_class_name'>";
-                                echo $is_task_done?'<i class="fa fa-check-square-o"></i>':'<i class="fa fa-square-o"></i>';
-                                echo $name;
-                                echo '<a class = "delete-item secondary-content">';
-                                echo '<i class="fa fa-remove"></i>';
-                                echo '</a>';
-                            echo '</li>';
-                        }
-                ?>
+                            foreach ($tasks as $task) {
+                            
+                                $name = $task['name'];
+                                $due_date = $task['due_date'];
+                                $is_task_done = $task['status']==1;
+                                $task_class_name = $is_task_done?"task-done":"task-todo";
+                                echo "<div>";
+                                echo '<input type="checkbox" class="form-check-input" name="status" id="materialUnchecked" '.($is_task_done ? "checked":'').'>';
+                                echo '<input type="text" name="name" value="'.$name.'">';
+                                echo '<input type="hidden" name="due_date" value="'.$due_date.'">';
+                                    echo '<a class = "delete-item secondary-content">';
+                                    echo '<i class="fa fa-remove"></i>X';
+                                    echo '</a>';
+                                echo "</div>";
+                            }
+                            ?>
+                        </div>
 
+                        <div>
+                            <input type="hidden" name="id" value="7">
+                            <input type="checkbox" class="form-check-input" name="status" id="materialUnchecked"
+                                checked>
+                            <input type="text" name="name" value="Zrywanie igiel z lasu">
+                            <input type="hidden" name="due_date" value="2021-06-13 21:45:24">
+                            <a class="delete-item secondary-content">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </div>
 
-
-                        </ul>
                         <a href="#" class="clear-tasks btn black">Clear all tasks</a>
                     </div>
                 </div>
@@ -119,7 +122,6 @@ $polaczenie->close();
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="tasks.js"></script>
 </body>
 
