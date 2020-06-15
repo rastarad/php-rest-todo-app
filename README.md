@@ -57,4 +57,4 @@
   - wygląd strony
   - ~~przycisk wylogowania~~
   - ~~podpięcie do api~~
-  - wywołanie funkcji
+  - ~~wywołanie funkcji~~

@@ -1,5 +1,6 @@
 const apiURL = "api/tasks.php";
-function addTask(name) {
+
+function addTask(name, onSuccess) {
   //zapakuj dane w JSONa
   //przygotuj zapytanie
   //wyślij zapytanie
@@ -22,13 +23,13 @@ function addTask(name) {
     url: apiURL,
     contentType: "application/x-www-form-urlencoded",
     data: task,
-    success: success,
+    success: onSuccess,
     // error: error,
     dataType: "json",
   });
 }
 
-function deleteTask(id) {
+function deleteTask(id, onSuccess) {
   let task = {
     id: id,
   };
@@ -42,7 +43,7 @@ function deleteTask(id) {
     url: apiURL,
     contentType: "application/x-www-form-urlencoded",
     data: task,
-    success: success,
+    success: onSuccess,
     // error: error,
     dataType: "json",
   });
@@ -70,4 +71,37 @@ function updateTask(id, name, status, dueDate) {
     // error: error,
     dataType: "json",
   });
+}
+
+function changeStatus(checkbox) {
+  const taskData = getTaskData($(checkbox));
+  updateTask(taskData.id, taskData.name, taskData.status, taskData.due_date);
+}
+
+function getTaskData(inputSelector) {
+  const inputsData = $(inputSelector)
+    .parent(".todo-item")
+    .children("input")
+    .map(function () {
+      return { name: this.name, value: this.value, checked: this.checked };
+    });
+
+  const task = {
+    id: inputsData.toArray().find(function (x) {
+      return x.name === "id";
+    }).value,
+    name: inputsData.toArray().find(function (x) {
+      return x.name === "name";
+    }).value,
+    due_date: inputsData.toArray().find(function (x) {
+      return x.name === "due_date";
+    }).value,
+    status: inputsData.toArray().find(function (x) {
+      return x.name === "status";
+    }).checked
+      ? 1
+      : 0,
+  };
+
+  return task;
 }

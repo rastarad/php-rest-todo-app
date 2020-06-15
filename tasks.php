@@ -64,13 +64,13 @@ $polaczenie->close();
                     <div class="card-content">
                         <span class="card-title">Task List</span>
                         <div class="row">
-                            <form id="task-form">
-                                <div class="input-field col s12">
-                                    <input type="text" name="task" id="task" />
-                                    <label for="task">New task</label>
-                                </div>
-                                <input type="submit" value="Add Task" class="btn" />
-                            </form>
+                            <div class="input-field col s12">
+                                <input type="text" name="task" id="new-task-name" />
+                                <label for="task">New task</label>
+                            </div>
+                            <button class="btn" id="new-task-button">
+                                Add task
+                            </button>
                         </div>
                     </div>
                     <div class="card-action">
@@ -81,36 +81,26 @@ $polaczenie->close();
                         </div>
 
 
-                        <div class="collection">
+                        <div id="todo-list">
                             <?php
-
                             foreach ($tasks as $task) {
-                            
+                                $id = $task['id'];
                                 $name = $task['name'];
                                 $due_date = $task['due_date'];
                                 $is_task_done = $task['status']==1;
-                                $task_class_name = $is_task_done?"task-done":"task-todo";
-                                echo "<div>";
-                                echo '<input type="checkbox" class="form-check-input" name="status" id="materialUnchecked" '.($is_task_done ? "checked":'').'>';
-                                echo '<input type="text" name="name" value="'.$name.'">';
-                                echo '<input type="hidden" name="due_date" value="'.$due_date.'">';
-                                    echo '<a class = "delete-item secondary-content">';
-                                    echo '<i class="fa fa-remove"></i>X';
-                                    echo '</a>';
-                                echo "</div>";
+                                $task_class_name = $is_task_done ? "task-done" : "task-todo";
+
+                                echo '<div class="todo-item">';
+                                    echo '<input type="hidden" name="id" id="task_'.$id.'_id_input" value="'.$id.'">';
+                                    echo '<input type="checkbox" class="form-check-input todo-item-status-input" name="status" id="task_'.$id.'_status_input" '.($is_task_done ? "checked":'').'>';
+                                    echo '<input type="text" name="name" class="todo-item-name-input" id="task_'.$id.'_name_input"value="'.$name.'">';
+                                    echo '<input type="hidden" name="due_date" id="task_'.$id.'_due_date_input" value="'.$due_date.'">';
+                                    echo '<button class = "delete-item secondary-content todo-item-delete-button">';
+                                        echo '<i class="fa fa-remove"></i>X';
+                                    echo '</button>';
+                                echo '</div>';
                             }
                             ?>
-                        </div>
-
-                        <div>
-                            <input type="hidden" name="id" value="7">
-                            <input type="checkbox" class="form-check-input" name="status" id="materialUnchecked"
-                                checked>
-                            <input type="text" name="name" value="Zrywanie igiel z lasu">
-                            <input type="hidden" name="due_date" value="2021-06-13 21:45:24">
-                            <a class="delete-item secondary-content">
-                                <i class="fa fa-remove"></i>
-                            </a>
                         </div>
 
                         <a href="#" class="clear-tasks btn black">Clear all tasks</a>
@@ -123,6 +113,59 @@ $polaczenie->close();
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="tasks.js"></script>
+    
+    <script>
+    function onDeleteButtonClick() {
+        const button = $(this)
+        const taskData = getTaskData(button);
+        function afterDelete(){
+            button.parent(".todo-item").remove();
+        }
+
+        deleteTask(taskData.id, afterDelete);        
+    }
+
+    $(".todo-item-status-input").click(function() {changeStatus(this);});
+    $(".todo-item-name-input").change(function() {changeStatus(this);});
+
+    $(".todo-item-delete-button").click(onDeleteButtonClick);
+
+    $("#new-task-button").click(function() {
+        const input = $("#new-task-name")[0]
+        const name = input.value;
+        
+        function afterAdd(data){
+            const id = data.id; 
+            const name = data.name;
+            const due_date = "2021-06-13 21:45:24"; // Date.now();
+            $("#new-task-name").val('');
+
+            let taskDiv = $("<div class=\"todo-item\"></div>");
+            
+            let idInput = $('<input type="hidden" name="id" id="task_'+id+'_id_input" value="'+id+'">');
+            let statusInput =$('<input type="checkbox" class="form-check-input todo-item-status-input" name="status" id="task_'+id+'_status_input" >');
+            statusInput.click(function() {changeStatus(this);});
+
+            let nameInput = $('<input type="text" name="name" class="todo-item-name-input" id="task_'+id+'_name_input"value="'+name+'">');
+            nameInput.change(function() {changeStatus(this);});
+
+            let dueDateInput = $('<input type="hidden" name="due_date" id="task_'+id+'_due_date_input" value="'+due_date+'">');
+            let deleteButton = $('<button class = "delete-item secondary-content todo-item-delete-button"><i class="fa fa-remove"></i>X</button>');
+            deleteButton.click(onDeleteButtonClick);
+
+            taskDiv.append(idInput);
+            taskDiv.append(statusInput);
+            taskDiv.append(nameInput);
+            taskDiv.append(dueDateInput);
+            taskDiv.append(deleteButton);
+
+            $("#todo-list").append(taskDiv);
+        }
+        
+        addTask(name, afterAdd);
+    });
+    </script>
+
 </body>
 
 </html>
