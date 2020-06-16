@@ -80,8 +80,8 @@ function changeStatus(checkbox) {
 
 function getTaskData(inputSelector) {
   const inputsData = $(inputSelector)
-    .parent(".todo-item")
-    .children("input")
+    .parents(".todo-item")
+    .find("input")
     .map(function () {
       return { name: this.name, value: this.value, checked: this.checked };
     });

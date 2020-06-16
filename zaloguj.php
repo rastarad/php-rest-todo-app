@@ -39,7 +39,7 @@ else
             if(!password_verify($haslo,$wiersz['password_hash']))
             {
                 $_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
-                // header('Location: index.php');
+                 //header('Location: index.php');
             }
             else{
                 $_SESSION['zalogowany']= true;
@@ -52,7 +52,7 @@ else
         }else {
 
             $_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
-            // header('Location: index.php');
+            header('Location: index.php');
 
         }
     }
