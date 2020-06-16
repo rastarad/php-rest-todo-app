@@ -19,24 +19,15 @@
 
 ## /tasks
 
-- `GET /tasks` - returns list of tasks for loged in user
+- `GET /tasks` - returns list of tasks for loged in user (if task id is provided returns single task)
 - `POST /tasks` - creates new task, returns created task with id
-- `PUT /tasks/{id}` - updates task with given id, returns updated task
-- `DELETE /tasks/{id}` - deleted task with given id
-
-## /users
-
-- `GET /users` - returns list of users
-- `POST /users` - creates new user, returns created user with id
-
-## /login
-
-- `POST /login` - ??? token/cookies
+- `PUT /tasks` - updates task with given id, returns updated task (requires task id)
+- `DELETE /tasks` - deleted task with given id (requires task id)
 
 ## TODO
 
 - landing page
-  - all
+  - ~~all~~
 - ekran rejestracji
   - ~~zakładanie konta na bazie~~
   - ~~wygląd strony~~
@@ -54,7 +45,7 @@
   - ~~edycja opisu zadania~~
   - ~~wyswietlanie statusu zadania~~
   - ~~pobierania zadań z bazy~~
-  - wygląd strony
+  - ~~wygląd strony~~
   - ~~przycisk wylogowania~~
   - ~~podpięcie do api~~
   - ~~wywołanie funkcji~~
